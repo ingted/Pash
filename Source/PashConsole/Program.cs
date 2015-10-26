@@ -14,6 +14,7 @@ namespace Pash
         {
             var interactive = true; // interactive by default
             var file = false; // interactive by default
+	    var shell = false;
             StringBuilder commands = new StringBuilder();
 	    string cmd;
             int startCommandAt = 0;
@@ -24,12 +25,13 @@ namespace Pash
                 // no interactive shell if we have commands given but not this parameter
                 interactive = args[0].Equals("-noexit");
                 file = args[0].Equals("-f");
-                if (interactive)
+		shell = args[0].Equals("-c");
+                if (interactive || shell)
                 {
                     // ignore first arg as it is no command
                     startCommandAt = 1;
                 }
-                if (file)
+                if (file || shell)
                 {
                     interactive = false;
                 }
@@ -37,17 +39,23 @@ namespace Pash
             }
 
             // other args are interpreted as commands to be executed
-            if(!file){
+            if(!(file)){
 	    	for (int i = startCommandAt; i < args.Length; i++)
             	{	
                 	commands.Append(args[i]);
-	                commands.Append("; ");
+	                commands.Append(shell == true ? " " : "; ");
             	}
+		Console.WriteLine(commands.ToString());
             	FullHost p = new FullHost(interactive);
 	        return p.Run(commands.ToString());
 	    } else {
-		cmd = System.IO.File.ReadAllText(args[1]);
-            	FullHost p = new FullHost(interactive);
+		//if(file){
+			cmd = System.IO.File.ReadAllText(args[1]);
+        	//}
+		//if(shell){
+		//	
+		//}
+	    	FullHost p = new FullHost(interactive);
             	return p.Run(cmd);
     	    }
 
