@@ -5,6 +5,10 @@ using System.Management.Automation.Runspaces;
 using System.Management.Automation;
 using System.Collections.ObjectModel;
 
+//2015.10.26 -c :./Pash.exe -c ssh "'root@10.128.82.3' ls /"
+//2015.10.26 -f :./Pash.exe -f test.ps1
+
+
 namespace Pash
 {
     // TODO: fix all the assembly attributes
