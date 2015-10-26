@@ -5,4 +5,13 @@
 [Pash](https://github.com/Pash-Project/Pash/)
 ====
  add invoke ps1 script feature (-f)
+====
  add invoke commands directly feature (-c)
+====
+root@cd1:~# Pash.exe -c \$a = psql "-p40001 -h '10.128.112.40' -Upostgres -c 'select 1 as no;'" \; \$a
+$a = psql -p40001 -h '10.128.112.40' -Upostgres -c 'select 1 as no;' ; $a
+ no
+----
+  1
+(1 row)
+
